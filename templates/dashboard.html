@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Totoro Services Dashboard</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="static/style.css">
+        <style>
+
+        </style>
+    </head>
+    <body class="bg-black text-white p-8">
+        <!-- <h1 class="font-bold text-4xl text-center mt-16 text-amber-600 tracking-widest">Totoro Services Dashboard</h1> -->
+        <!-- <pre>
+            :::::::::::::::::::::::::::::::::::::: :::::::::  ::::::::
+                :+:   :+:    :+:   :+:   :+:    :+::+:    :+::+:    :+:
+                +:+   +:+    +:+   +:+   +:+    +:++:+    +:++:+    +:+
+                +#+   +#+    +:+   +#+   +#+    +:++#++:++#: +#+    +:+
+            +#+   +#+    +#+   +#+   +#+    +#++#+    +#++#+    +#+
+            #+#   #+#    #+#   #+#   #+#    #+##+#    #+##+#    #+#
+            ###    ########    ###    ######## ###    ### ########
+        </pre> -->
+        <div class="mx-auto w-full max-w-screen-lg">
+            <pre class="text-center">
+                <span class="text-lime-500">     :::::::::::::::::::::::::::::::::::::: :::::::::  ::::::::</span>
+                <span class="text-sky-400">         :+:   :+:    :+:   :+:   :+:    :+::+:    :+::+:    :+:</span>
+                <span class="text-yellow-300">        +:+   +:+    +:+   +:+   +:+    +:++:+    +:++:+    +:+</span>
+                <span class="text-pink-500">       +#+   +#+    +:+   +#+   +#+    +:++#++:++#: +#+    +:+</span>
+                <span class="text-purple-400">      +#+   +#+    +#+   +#+   +#+    +#++#+    +#++#+    +#+</span>
+                <span class="text-indigo-500">    #+#   #+#    #+#   #+#   #+#    #+##+#    #+##+#    #+#</span>
+                <span class="text-rose-600">  ###    ########    ###    ######## ###    ### ########</span>
+            </pre>
+        </div>
+        <hr class="mx-auto my-4 border-sky-400 w-3/4 neon-blue my-1" />
+
+        <p class="italic w-full text-right p-2 text-sky-400 font-bold">refreshed <span id="refresh-time" class="">just now</span></p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full p-8">
+            {% for service in services %}
+            <div class="bg-gray-800 text-white p-4 rounded-lg justify-center border-1 {{ 'neon-green' if service.active == true else 'neon-pink' }}"
+                id="service-{{ loop.index }}"
+            >
+                <div class="font-bold flex gap-2 items-center justify-between ">
+                    <p class="text-lg">{{ service['name'] }}</p>
+                    <p id="status-indicator-{{ loop.index }}"
+                        class="rounded-full h-1.5 w-1.5 {{ 'bg-lime-500 neon-green' if service.active == true else 'bg-rose-600 neon-pink' }}">
+                    </p>
+                </div>
+                <hr class="my-1 {{ 'neon-green border-lime-500' if service.active == true else 'neon-pink border-rose-600' }}" />
+                <p>
+                    <a
+                    href="{{ service['service_url'] }}"
+                    class="text-sky-400 italic hover:text-amber-600"
+                    target="_blank"
+                    >
+                    service
+                    </a>
+                    {% if service['logs_url'] %}
+                    |
+                    <a
+                    href="{{ service['logs_url'] }}"
+                    class="text-sky-400 italic hover:text-amber-600"
+                    target="_blank"
+                    >
+                    logs
+                    </a>
+                    {% endif %}
+                    <!-- [{{service['status_code'] }}] -->
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>
+
+<script src="static/script.js"></script>

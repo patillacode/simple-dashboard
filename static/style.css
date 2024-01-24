@@ -1,0 +1,32 @@
+body {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.neon-pink {
+    box-shadow: 0 0 6px #FE0194, 0 0 6px #FE0194, 0 0 6px #FE0194, 0 0 6px #FE0194;
+}
+
+.neon-red {
+    box-shadow: 0 0 6px #FF004D, 0 0 6px #FF004D, 0 0 6px #FF004D, 0 0 6px #FF004D;
+}
+
+.neon-yellow {
+    box-shadow: 0 0 6px #FFEA00, 0 0 6px #FFEA00, 0 0 6px #FFEA00, 0 0 6px #FFEA00;
+}
+
+.neon-green {
+    box-shadow: 0 0 6px #00FF0D, 0 0 6px #00FF0D, 0 0 6px #00FF0D, 0 0 6px #00FF0D;
+}
+
+.neon-blue {
+    box-shadow: 0 0 6px #00C8FF, 0 0 6px #00C8FF, 0 0 6px #00C8FF, 0 0 6px #00C8FF;
+}
+
+.neon-orange {
+    box-shadow: 0 0 6px #d97706, 0 0 6px #d97706, 0 0 6px #d97706, 0 0 6px #d97706;
+}
+
+div.neon-green:hover,
+div.neon-pink:hover {
+    box-shadow: 0 0 6px #d97706, 0 0 6px #d97706, 0 0 6px #d97706, 0 0 6px #d97706;
+}

@@ -1,0 +1,24 @@
+[
+    {
+        "name": "My Website [PROD]",
+        "status_url": "https://mywebsite.com/status",
+        "service_url": "https://mywebsite.com",
+        "logs_url": "https://mylogservice.com/mywebsite-prod",
+        "expected_status": 200,
+        "method": "HEAD",
+        "headers": {
+            "Content-Type": "application/json"
+        }
+    },
+    {
+        "name": "My Website [STAGING]",
+        "status_url": "https://staging.mywebsite.com/status",
+        "service_url": "https://staging.mywebsite.com",
+        "logs_url": "https://mylogservice.com/mywebsite-stageing",
+        "expected_status": 200,
+        "method": "GET",
+        "headers": {
+            "Content-Type": "text/html"
+        }
+    }
+]
