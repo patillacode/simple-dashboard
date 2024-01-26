@@ -8,6 +8,10 @@ This is a simple Python/Flask application designed to monitor the status of vari
 - **Automatic Refresh**: The dashboard automatically refreshes the status of services at a regular interval.
 - **Service Configuration**: Services to be monitored can be configured via a JSON file.
 
+## Shots
+![Screenshot 2024-01-26 at 01 35 57](https://github.com/patillacode/simple-dashboard/assets/10074977/19d5c881-de8a-41d2-9dae-27ad830016c0)
+
+
 ## Installation
 
 To install the necessary dependencies for this application, ensure you have Python installed on your system and then use the provided Makefile:
