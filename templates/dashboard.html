@@ -24,7 +24,7 @@
             #+#   #+#    #+#   #+#   #+#    #+##+#    #+##+#    #+#
             ###    ########    ###    ######## ###    ### ########
         </pre> -->
-        <div class="mx-auto w-full max-w-screen-lg">
+        <!-- <div class="mx-auto w-full max-w-screen-lg">
             <pre class="text-center">
                 <span class="text-lime-500">     :::::::::::::::::::::::::::::::::::::: :::::::::  ::::::::</span>
                 <span class="text-sky-400">         :+:   :+:    :+:   :+:   :+:    :+::+:    :+::+:    :+:</span>
@@ -34,43 +34,54 @@
                 <span class="text-indigo-500">    #+#   #+#    #+#   #+#   #+#    #+##+#    #+##+#    #+#</span>
                 <span class="text-rose-600">  ###    ########    ###    ######## ###    ### ########</span>
             </pre>
-        </div>
+        </div> -->
+        <h1 class="text-sky-400 italic text-2xl text-center">Totoro Monitoring</h1>
         <hr class="mx-auto my-4 border-sky-400 w-3/4 neon-blue my-1" />
 
-        <p class="italic w-full text-right p-2 text-sky-400 font-bold">refreshed <span id="refresh-time" class="">just now</span></p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full p-8">
-            {% for service in services %}
-            <div class="bg-gray-800 text-white p-4 rounded-lg justify-center border-1 {{ 'neon-green' if service.active == true else 'neon-pink' }}"
-                id="service-{{ loop.index }}"
-            >
-                <div class="font-bold flex gap-2 items-center justify-between ">
-                    <p class="text-lg">{{ service['name'] }}</p>
-                    <p id="status-indicator-{{ loop.index }}"
-                        class="rounded-full h-1.5 w-1.5 {{ 'bg-lime-500 neon-green' if service.active == true else 'bg-rose-600 neon-pink' }}">
-                    </p>
-                </div>
-                <hr class="my-1 {{ 'neon-green border-lime-500' if service.active == true else 'neon-pink border-rose-600' }}" />
-                <p>
-                    <a
-                    href="{{ service['service_url'] }}"
-                    class="text-sky-400 italic hover:text-amber-600"
-                    target="_blank"
-                    >
-                    service
-                    </a>
-                    {% if service['logs_url'] %}
-                    |
-                    <a
-                    href="{{ service['logs_url'] }}"
-                    class="text-sky-400 italic hover:text-amber-600"
-                    target="_blank"
-                    >
-                    logs
-                    </a>
-                    {% endif %}
-                    <!-- [{{service['status_code'] }}] -->
-                </p>
-            </div>
+        <p class="text-center md:text-right italic w-full p-2 text-sky-400 font-bold">refreshed <span id="refresh-time" class="">just now</span></p>
+        <div class="flex-col w-full p-8">
+            {% for service_data in context %}
+                <!-- <p class="border-2 border-sky-400">{{ service_data}}</p> -->
+                {% for category, services in service_data.items() %}
+                    <div class="p-2 mb-8">
+                        <h2 class="text-2xl font-bold mb-4 text-amber-600 tracking-widest underline">{{ category }}</h2>
+                        <!-- <hr class="mx-auto mt-1 mb-4 border-sky-400 w-1/4 neon-blue my-1" /> -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+                            {% for service in services %}
+                            <div id="service-{{ loop.index }}"
+                                 class="bg-gray-800 text-white p-4 rounded-lg justify-center border-1 transform hover:scale-105 transition-transform duration-200
+                                        {{ 'neon-green' if service.active == true else 'neon-pink' }}"
+
+                            >
+                                <div class="font-bold flex gap-2 items-center justify-between ">
+                                    <p class="text-lg">{{ service['name'] }}</p>
+                                    <p id="status-indicator-{{ loop.index }}"
+                                        class="rounded-full h-1.5 w-1.5 {{ 'bg-lime-500 neon-green' if service.active == true else 'bg-rose-600 neon-pink' }}">
+                                    </p>
+                                </div>
+                                <hr class="w-1/2 my-1 {{ 'neon-green border-lime-500' if service.active == true else 'neon-pink border-rose-600' }}" />
+                                <div class="flex justify-between">
+                                    <p>
+                                        <a href="{{ service['service_url'] }}" class="text-sky-400 italic hover:text-amber-600" target="_blank">
+                                            service
+                                        </a>
+                                        {% if service['logs_url'] %}
+
+                                        <a href="{{ service['logs_url'] }}" class="text-sky-400 italic" target="_blank">
+                                            <span>|</span> <span class="hover:text-amber-600">logs</span>
+                                        </a>
+                                        {% endif %}
+                                        <!-- [] -->
+                                    </p>
+                                    <p class="text-sm text-right">
+                                        <span class="{{ 'text-sky-400' if service.active == true else 'text-rose-600' }} italic">[{{service['status_code'] }}]</span>
+                                    </p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
             {% endfor %}
         </div>
     </body>

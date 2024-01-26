@@ -7,4 +7,4 @@ install:
 
 run:
 	@echo "Running..."
-	python app.py
+	venv/bin/python app.py

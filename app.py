@@ -24,23 +24,33 @@ def service_status(service_id):
 @app.route("/")
 def dashboard():
     with open("services.json") as config_file:
-        services = json.load(config_file)
+        full_data = json.load(config_file)
 
-    context = []
-    for service in services:
-        active, status = check_service(service)
-        context.append(
-            {
-                "name": service["name"],
-                "status_url": service["status_url"],
-                "service_url": service["service_url"],
-                "logs_url": service["logs_url"],
-                "active": active,
-                "status_code": status,
-            }
-        )
+    # context = []
+    for services_data in full_data:
+        for services in services_data.values():
+            for service in services:
+                active, status = check_service(service)
+                service.update(
+                    {
+                        "active": active,
+                        "status_code": status,
+                    }
+                )
+    # for service in services:
+    #     active, status = check_service(service)
+    #     context.append(
+    #         {
+    #             "name": service["name"],
+    #             "status_url": service["status_url"],
+    #             "service_url": service["service_url"],
+    #             "logs_url": service["logs_url"],
+    #             "active": active,
+    #             "status_code": status,
+    #         }
+    #     )
 
-    return render_template("dashboard.html", services=context)
+    return render_template("dashboard.html", context=full_data)
 
 
 if __name__ == "__main__":
