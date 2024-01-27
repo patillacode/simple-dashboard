@@ -8,12 +8,21 @@ from utils.checks import check_service
 app = Flask(__name__)
 
 
-@app.route("/status/<int:service_id>")
-def service_status(service_id):
+@app.route("/status/<string:service_name>")
+def service_status(service_name):
     with open("services.json") as config_file:
-        services = json.load(config_file)
+        full_data = json.load(config_file)
 
-    service = services[service_id - 1]
+    services_as_list = []
+    for services_data in full_data:
+        for services in services_data.values():
+            for service in services:
+                services_as_list.append(service)
+
+    service = next(
+        (service for service in services_as_list if service["name"] == service_name),
+        None,
+    )
     active, status_code = check_service(service)
 
     return jsonify(

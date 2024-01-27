@@ -9,12 +9,20 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="static/style.css">
+        <link rel="apple-touch-icon" sizes="180x180" href="static/images/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="static/images/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="static/images/favicons/favicon-16x16.png">
+        <link rel="manifest" href="static/images/favicons/site.webmanifest">
+        <link rel="mask-icon" href="static/images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="static/images/favicons/favicon.ico">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="static/images/favicons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
         <style>
 
         </style>
     </head>
     <body class="bg-black text-white p-8">
-        <!-- <h1 class="font-bold text-4xl text-center mt-16 text-amber-600 tracking-widest">Totoro Services Dashboard</h1> -->
         <!-- <pre>
             :::::::::::::::::::::::::::::::::::::: :::::::::  ::::::::
                 :+:   :+:    :+:   :+:   :+:    :+::+:    :+::+:    :+:
@@ -36,44 +44,47 @@
             </pre>
         </div> -->
         <h1 class="text-sky-400 italic text-2xl text-center">Totoro Monitoring</h1>
+        <!-- <p class="w-full">
+            <img src="static/images/logo.png" alt="Simple Dashboard Service Monitoring" class="h-64 w-64 ">
+        </p> -->
         <hr class="mx-auto my-4 border-sky-400 w-3/4 neon-blue my-1" />
 
         <p class="text-center md:text-right italic w-full p-2 text-sky-400 font-bold">refreshed <span id="refresh-time" class="">just now</span></p>
         <div class="flex-col w-full p-8">
             {% for service_data in context %}
-                <!-- <p class="border-2 border-sky-400">{{ service_data}}</p> -->
                 {% for category, services in service_data.items() %}
                     <div class="p-2 mb-8">
                         <h2 class="text-2xl font-bold mb-4 text-amber-600 tracking-widest underline">{{ category }}</h2>
-                        <!-- <hr class="mx-auto mt-1 mb-4 border-sky-400 w-1/4 neon-blue my-1" /> -->
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
                             {% for service in services %}
-                            <div id="service-{{ loop.index }}"
+                            <div id="service--{{ service.name }}"
                                  class="bg-gray-800 text-white p-4 rounded-lg justify-center border-1 transform hover:scale-105 transition-transform duration-200
                                         {{ 'neon-green' if service.active == true else 'neon-pink' }}"
 
                             >
                                 <div class="font-bold flex gap-2 items-center justify-between ">
-                                    <p class="text-lg">{{ service['name'] }}</p>
-                                    <p id="status-indicator-{{ loop.index }}"
+                                    <p class="text-lg">{{ service.display }}</p>
+                                    <p id="status-indicator-{{ service.name }}"
                                         class="rounded-full h-1.5 w-1.5 {{ 'bg-lime-500 neon-green' if service.active == true else 'bg-rose-600 neon-pink' }}">
                                     </p>
                                 </div>
-                                <hr class="w-1/2 my-1 {{ 'neon-green border-lime-500' if service.active == true else 'neon-pink border-rose-600' }}" />
-                                <div class="flex justify-between">
+                                <hr id="hr-status-indicator-{{ service.name }}" class="w-1/2 my-1 {{ 'neon-green border-lime-500' if service.active == true else 'neon-pink border-rose-600' }}" />
+                                <div class="flex justify-between items-center">
                                     <p>
-                                        <a href="{{ service['service_url'] }}" class="text-sky-400 italic hover:text-amber-600" target="_blank">
+                                        <a href="{{ service.service_url }}" class="text-sky-400 italic hover:text-amber-600" target="_blank">
                                             service
                                         </a>
-                                        {% if service['logs_url'] %}
+                                        {% if service.logs_url %}
 
-                                        <a href="{{ service['logs_url'] }}" class="text-sky-400 italic" target="_blank">
+                                        <a href="{{ service.logs_url }}" class="text-sky-400 italic" target="_blank">
                                             <span>|</span> <span class="hover:text-amber-600">logs</span>
                                         </a>
                                         {% endif %}
                                     </p>
                                     <p class="text-sm text-right">
-                                        <span class="{{ 'text-sky-400' if service.active == true else 'text-rose-600' }} italic">[{{service['status_code'] }}]</span>
+                                        {% if service.status_code %}
+                                            <span class="{{ 'text-amber-600' if service.active == true else 'text-rose-600' }} italic">[{{service.status_code }}]</span>
+                                        {% endif %}
                                     </p>
                                 </div>
                             </div>
